@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb           # in-memory режим (данные живут, пока приложение запущено)
+    # Для файлового режима используйте: jdbc:h2:file:./data/mydb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update                 # create, update, validate, none
+    show-sql: true                      # выводить SQL в консоль
+    properties:
+      hibernate:
+        format_sql: true                # красивое форматирование SQL
+  h2:
+    console:
+      enabled: true                      # включаем веб-консоль H2
+      path: /h2-console                   # путь к консоли (http://localhost:8080/h2-console)
+      settings:
+        web-allow-others: true            # разрешить удалённый доступ (осторожно в продакшне)

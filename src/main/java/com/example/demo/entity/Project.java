@@ -1,5 +1,6 @@
-package entity;
+package com.example.demo.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -7,24 +8,40 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "projects")
 @Getter @Setter
-@NoArgsConstructor
+@NoArgsConstructor // TODO Для JPA?
 public class Project {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; //Потом замена типа на UUID
+
+    @Column
     private String name;
+
+    @Column
     private String description;
+
+    @Column
     private LocalDate dateStart;
+
+    @Column
     private LocalDate dateFinish;
-    private int userId;
+
+    @ManyToOne
+    private User user;
+
+    @OneToMany
     private List<Task> tasks;
 
-    public Project(int id, String name, String description, LocalDate dateStart, LocalDate dateFinish, int userId){
+    public Project(int id, String name, String description, LocalDate dateStart, LocalDate dateFinish, User user){
         this.id = id;
         this.name = name;
         this.description = description;
         this.dateStart = dateStart;
         this.dateFinish = dateFinish;
-        this.userId = userId;
+        this.user = user;
         this.tasks = new ArrayList<>();
     }
 
@@ -32,6 +49,6 @@ public class Project {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return "Id: " + id + "\n\tНазвание: " + name + "\n\tОписание: " + description
                 + "\n\tДата начала: " + dtf.format(dateStart) + "\n\tДата окончания: " + dtf.format(dateFinish)
-                + "\n\tid Пользователя: " + userId;
+                + "\n\tПользователь: " + user;
     }
 }
