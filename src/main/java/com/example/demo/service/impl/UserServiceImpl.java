@@ -8,13 +8,35 @@ import org.springframework.stereotype.Service;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    @Autowired
+    private final Session session;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository){
+    public UserServiceImpl(UserRepository userRepository, Session session){
         this.userRepository = userRepository;
+        this.session = session;
+    }
+
+    public User authorizeUser(User user, Session session) {
+        if(session.isAuthenticated()){
+            throw new RuntimeException("Вход уже выполнен");
+        }
+
+        User userByLogin = userRepository.findByLogin(user.getLogin());
+        if(userByLogin != null && userByLogin.getPasswordHash().equals(user.getPasswordHash())){
+            System.out.println("Вход выполнен успешно");
+            session.setCurrentUser(user);
+        }
+        else
+        {
+            System.out.println("Неправильный логин или пароль");
+        }
+        return user;
     }
 
     public User registerUser(User user) {
@@ -37,18 +59,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByLogin(login);
     }
 
-    public void printRoleTypes(){
-        RoleType[] roleTypes = RoleType.values();
-        for (int i = 0; i < roleTypes.length; i++) {
-            System.out.println(i + " " + roleTypes[i]);
-        }
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
     }
 
-    public RoleType chooseRoleType(int roleType){
-        RoleType[] roleTypes = RoleType.values();
-        if(roleType < 0 || roleType > roleTypes.length - 1){
-            throw new RuntimeException("Такой роли не существует");
-        }
-        return roleTypes[roleType];
+    public List<RoleType> getAllRoleTypes(){
+        return List.of(RoleType.values());
+    }
+
+    public User getCurrentProfileInfo(){
+        return session.getCurrentUser();
     }
 }

@@ -21,6 +21,6 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query(value = "UPDATE users SET password_hash = :newPasswordHash WHERE login = :login", nativeQuery = true)
     User updatePasswordHashByLogin(@Param("login") String login, @Param("newPasswordHash") String newPasswordHash);
 
-    User findById(int userId);
+    User findById(int id);
     User findByLogin(String login);
 }

@@ -6,13 +6,22 @@ import com.example.demo.entity.User;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.service.UserService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
+    Session session;
 
-    public UserController(UserService userService){
+    public UserController(UserService userService, Session session){
         this.userService = userService;
+        this.session = session;
+    }
+
+    @PostMapping
+    public User authorizeUser(User user, Session session){
+        return userService.authorizeUser(user, session);
     }
 
     @PostMapping
@@ -21,22 +30,38 @@ public class UserController {
     }
 
     // Аннотация для частичного обновления сущности
-    @PatchMapping("/{id}/password")
+    @PatchMapping("/updatePasswordById")
     public User updatePasswordHashById(int id, String newPassword){
         return userService.updatePasswordHashById(id, newPassword);
     }
 
-    @PatchMapping("/by-login/password")
+    @PatchMapping("/updatePasswordByLogin")
     public User updatePasswordHashByLogin(String login, String newPassword){
         return userService.updatePasswordHashByLogin(login, newPassword);
     }
 
-    @GetMapping("/{id}")
-    public User findById(@PathVariable int userId){
-        return userService.findById(userId);
+    @GetMapping(value = "/findById/{id}")
+    public User findById(@PathVariable int id){
+        return userService.findById(id);
     }
 
-    void printCurrentProfileInfo(Session session){}
-    void printRoleTypes(){}
-    RoleType chooseRoleType(int roleType){return RoleType.USER;}
+    @GetMapping(value = "/findByLogin/{login}")
+    public User findById(@PathVariable String login){
+        return userService.findByLogin(login);
+    }
+
+    @GetMapping("/info")
+    public List<User> getAllUsers(){
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/roleTypes")
+    public List<RoleType> getAllRoleTypes(){
+        return userService.getAllRoleTypes();
+    }
+
+    @GetMapping("/currentProfileInfo")
+    User getCurrentProfileInfo(Session session){
+        return userService.getCurrentProfileInfo();
+    }
 }

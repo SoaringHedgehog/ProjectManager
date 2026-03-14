@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,14 +20,15 @@ public class User {
     @Column(nullable = false, unique = true)
     private String login;
 
-    @Column(nullable = false)
+    @Column(name = "passwordHash", nullable = false)
     private String passwordHash;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "roleType", nullable = false)
     private RoleType roleType;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private List<Project> projects;
 
     public User(int id, String login, String passwordHash, RoleType roleType){

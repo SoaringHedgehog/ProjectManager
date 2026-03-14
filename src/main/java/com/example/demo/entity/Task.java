@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,13 +22,14 @@ public class Task {
     @Column
     private String description;
 
-    @Column
+    @Column(name = "dateStart")
     private LocalDate dateStart;
 
-    @Column
+    @Column(name = "dateFinish")
     private LocalDate dateFinish;
 
     @ManyToOne
+    @JsonBackReference
     private Project project;
 
     public Task(int id, String name, String description, LocalDate dateStart, LocalDate dateFinish, Project project){

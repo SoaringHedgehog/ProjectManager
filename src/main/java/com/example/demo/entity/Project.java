@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,16 +25,18 @@ public class Project {
     @Column
     private String description;
 
-    @Column
+    @Column(name = "dateStart")
     private LocalDate dateStart;
 
-    @Column
+    @Column(name = "dateFinish")
     private LocalDate dateFinish;
 
     @ManyToOne
+    @JsonBackReference
     private User user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "project")
+    @JsonManagedReference
     private List<Task> tasks;
 
     public Project(int id, String name, String description, LocalDate dateStart, LocalDate dateFinish, User user){
