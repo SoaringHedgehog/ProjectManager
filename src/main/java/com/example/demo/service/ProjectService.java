@@ -2,15 +2,15 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Project;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public interface ProjectService {
-    public Project create(Project project);
-    public Project findById(int projectId);
-    public Project findByName(String projectName);
-    public Project updateById(int projectId, String fieldForUpdate, String newValue);
-    public Project updateByName(String projectName, String fieldForUpdate, String newValue);
-    public Project deleteById(int projectId);
-    public Project deleteByName(String projectName);
+    Project create(Project project);
+    Project findById(int projectId);
+    Project findByName(String projectName);
+    int updateFieldById(int projectId, String fieldForUpdate, String newValue);
+    int updateFieldByName(String projectName, String fieldForUpdate, String newValue);
+    int deleteById(int projectId);
+    Project deleteByName(String projectName);
+    List<Project> getAllProjects();
 }

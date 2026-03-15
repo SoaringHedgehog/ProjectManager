@@ -11,18 +11,16 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ProjectRepository extends JpaRepository<Project, String> {
-    // JPQL
-    @Modifying
-    @Query("UPDATE User u SET u.passwordHash = :newPasswordHash WHERE u.id = :id")
-    Project updateById(int projectId, String fieldForUpdate, String newValue);
-
-    // SQL
     @Modifying(clearAutomatically = true)
-    @Query(value = "UPDATE users SET password_hash = :newPasswordHash WHERE login = :login", nativeQuery = true)
-    Project updateByName(String projectName,String fieldForUpdate,String newValue);
+    @Query(value = "UPDATE projects SET ?2 = ?3 WHERE id = ?1", nativeQuery = true)
+    int updateFieldById(int id, String fieldName, String newValue);
+
+    @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE projects SET ?2 = ?3 WHERE name = ?1", nativeQuery = true)
+    int updateFieldByName(String name, String fieldName, String newValue);
 
     Project findById(int id);
     Project findByName(String name);
-    Project deleteById(int id);
+    int deleteById(int id);
     Project deleteByName(String name);
 }

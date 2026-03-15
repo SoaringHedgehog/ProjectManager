@@ -7,13 +7,13 @@ import com.example.demo.entity.User;
 import java.util.List;
 
 public interface UserService {
-    User authorizeUser(User user, Session session);
+    User authorizeUser(User user);
     User registerUser(User user);
-    User updatePasswordHashById(int id, String newPasswordHash);
-    User updatePasswordHashByLogin(String login, String newPasswordHash);
     User findById(int userId);
     User findByLogin(String login);
+    int updatePasswordHashById(int id, String newPasswordHash);
+    int updatePasswordHashByLogin(String login, String newPasswordHash);
     List<User> getAllUsers();
     List<RoleType> getAllRoleTypes();
-    User getCurrentProfileInfo();
+    //User getCurrentProfileInfo();
 }

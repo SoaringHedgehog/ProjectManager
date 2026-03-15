@@ -29,4 +29,23 @@ VALUES ('Купить рыбу', 'За 300 рублей', PARSEDATETIME('01.01.2
        ('Съесть торт', 'Шоколадный', PARSEDATETIME('10.10.2010', 'dd.MM.yyyy'), PARSEDATETIME('15.10.2010', 'dd.MM.yyyy'), 3),
        ('Написать другу', 'Ивану', PARSEDATETIME('20.10.2010', 'dd.MM.yyyy'), PARSEDATETIME('25.10.2010', 'dd.MM.yyyy'), 1);
 
+
+{
+    "login": "new user",
+    "passwordHash": "ab6b65fd2004858b1c615bc8cf8b8fgh",
+    "roleType": "ADMINISTRATOR"
+}
+
+{
+    "name": "new project",
+    "description": "Купить слона",
+    "dateStart": "2020-03-03",
+    "dateFinish": "2020-05-03",
+    "user": {
+        "id": 3
+    }
+}
+
+
+
  */

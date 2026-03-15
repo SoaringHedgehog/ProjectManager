@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.RoleType;
 import com.example.demo.entity.Session;
 import com.example.demo.entity.User;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.repository.UserRepository;
@@ -12,18 +13,16 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+    @Autowired
     private final UserRepository userRepository;
-    @Autowired
-    private final Session session;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, Session session){
+    public UserServiceImpl(UserRepository userRepository){
         this.userRepository = userRepository;
-        this.session = session;
     }
 
-    public User authorizeUser(User user, Session session) {
-        if(session.isAuthenticated()){
+    @Override
+    public User authorizeUser(User user) {
+        /*if(session.isAuthenticated()){
             throw new RuntimeException("Вход уже выполнен");
         }
 
@@ -35,39 +34,49 @@ public class UserServiceImpl implements UserService {
         else
         {
             System.out.println("Неправильный логин или пароль");
-        }
+        }*/
         return user;
     }
 
+    @Override
     public User registerUser(User user) {
         return userRepository.save(user);
     }
 
-    public User updatePasswordHashById(int id, String newPassword){
+    @Override
+    @Transactional
+    public int updatePasswordHashById(int id, String newPassword){
         return userRepository.updatePasswordHashById(id, newPassword);
     }
 
-    public User updatePasswordHashByLogin(String login, String newPassword){
+    @Override
+    @Transactional
+    public int updatePasswordHashByLogin(String login, String newPassword){
         return userRepository.updatePasswordHashByLogin(login, newPassword);
     }
 
+    @Override
     public User findById(int userId){
         return userRepository.findById(userId);
     }
 
+    @Override
     public User findByLogin(String login){
         return userRepository.findByLogin(login);
     }
 
+    @Override
     public List<User> getAllUsers(){
         return userRepository.findAll();
     }
 
+    @Override
     public List<RoleType> getAllRoleTypes(){
         return List.of(RoleType.values());
     }
 
+    /*@Override
     public User getCurrentProfileInfo(){
         return session.getCurrentUser();
-    }
+    }*/
 }

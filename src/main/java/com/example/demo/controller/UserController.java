@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.RoleType;
 import com.example.demo.entity.Session;
 import com.example.demo.entity.User;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.service.UserService;
 
@@ -12,32 +13,21 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
-    Session session;
+    //Session session;
 
-    public UserController(UserService userService, Session session){
+    public UserController(UserService userService/*, Session session*/){
         this.userService = userService;
-        this.session = session;
+        //this.session = session;
     }
 
-    @PostMapping
-    public User authorizeUser(User user, Session session){
-        return userService.authorizeUser(user, session);
+    @PostMapping(value = "/authorization")
+    public User authorizeUser(@RequestBody User user){
+        return userService.authorizeUser(user);
     }
 
-    @PostMapping
+    @PostMapping(value = "/registration")
     public User registerUser(@RequestBody User user){
         return userService.registerUser(user);
-    }
-
-    // Аннотация для частичного обновления сущности
-    @PatchMapping("/updatePasswordById")
-    public User updatePasswordHashById(int id, String newPassword){
-        return userService.updatePasswordHashById(id, newPassword);
-    }
-
-    @PatchMapping("/updatePasswordByLogin")
-    public User updatePasswordHashByLogin(String login, String newPassword){
-        return userService.updatePasswordHashByLogin(login, newPassword);
     }
 
     @GetMapping(value = "/findById/{id}")
@@ -46,8 +36,19 @@ public class UserController {
     }
 
     @GetMapping(value = "/findByLogin/{login}")
-    public User findById(@PathVariable String login){
+    public User findByLogin(@PathVariable String login){
         return userService.findByLogin(login);
+    }
+
+    // Аннотация для частичного обновления сущности
+    @PatchMapping(value = "/updatePasswordById/{id}")
+    public int updatePasswordHashById(@PathVariable int id, @RequestBody String newPassword){
+        return userService.updatePasswordHashById(id, newPassword);
+    }
+
+    @PatchMapping("/updatePasswordByLogin/{login}")
+    public int updatePasswordHashByLogin(@PathVariable String login, @RequestBody String newPassword){
+        return userService.updatePasswordHashByLogin(login, newPassword);
     }
 
     @GetMapping("/info")
@@ -60,8 +61,8 @@ public class UserController {
         return userService.getAllRoleTypes();
     }
 
-    @GetMapping("/currentProfileInfo")
+    /*@GetMapping("/currentProfileInfo")
     User getCurrentProfileInfo(Session session){
         return userService.getCurrentProfileInfo();
-    }
+    }*/
 }
