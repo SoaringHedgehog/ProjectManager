@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.entity.Project;
+import com.example.demo.model.request.ProjectUpdateRequest;
 import com.example.demo.repository.ProjectRepository;
 import com.example.demo.service.ProjectService;
 import jakarta.transaction.Transactional;
@@ -35,19 +36,18 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     @Transactional
-    public int updateFieldById(int projectId, String fieldForUpdate, String newValue){
-        return projectRepository.updateFieldById(projectId, fieldForUpdate, newValue);
+    public Project updateFieldById(int projectId, ProjectUpdateRequest projectUpdateRequest){
+        Project project = projectRepository.findById(projectId);
+        project.setName(projectUpdateRequest.getName());
+        project.setDescription(projectUpdateRequest.getDescription());
+        project.setDateStart(projectUpdateRequest.getDateStart());
+        project.setDateFinish(projectUpdateRequest.getDateFinish());
+        return projectRepository.save(project);
     }
 
     @Override
     @Transactional
-    public int updateFieldByName(String projectName, String fieldForUpdate, String newValue){
-        return projectRepository.updateFieldByName(projectName, fieldForUpdate, newValue);
-    }
-
-    @Override
-    @Transactional
-    public int deleteById(int projectId){
+    public Project deleteById(int projectId){
         return projectRepository.deleteById(projectId);
     }
 

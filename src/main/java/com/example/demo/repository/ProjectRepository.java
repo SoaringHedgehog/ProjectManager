@@ -16,6 +16,6 @@ public interface ProjectRepository extends JpaRepository<Project, String> {
 
     Project findById(int id);
     Project findByName(String name);
-    int deleteById(int id);
+    Project deleteById(int id);
     Project deleteByName(String name);
 }
