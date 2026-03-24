@@ -1,9 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.Project;
-import com.example.demo.entity.User;
+import com.example.demo.model.entity.Project;
 import com.example.demo.repository.ProjectRepository;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.service.ProjectService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

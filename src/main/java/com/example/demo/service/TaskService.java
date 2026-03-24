@@ -1,8 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Task;
-import com.example.demo.entity.User;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.example.demo.model.entity.Task;
 
 import java.util.List;
 

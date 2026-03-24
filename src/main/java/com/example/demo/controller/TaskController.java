@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.*;
-import com.example.demo.entity.Task;
-import com.example.demo.service.TaskService;
+import com.example.demo.model.entity.Task;
 import com.example.demo.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 

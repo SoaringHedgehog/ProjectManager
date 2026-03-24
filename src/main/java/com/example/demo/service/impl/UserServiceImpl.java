@@ -1,8 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.RoleType;
-import com.example.demo.entity.Session;
-import com.example.demo.entity.User;
+import com.example.demo.model.entity.RoleType;
+import com.example.demo.model.entity.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

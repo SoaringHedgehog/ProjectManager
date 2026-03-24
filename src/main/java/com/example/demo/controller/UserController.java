@@ -1,9 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.RoleType;
-import com.example.demo.entity.Session;
-import com.example.demo.entity.User;
-import org.springframework.http.MediaType;
+import com.example.demo.model.entity.RoleType;
+import com.example.demo.model.entity.User;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.service.UserService;
 

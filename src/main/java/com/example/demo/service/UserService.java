@@ -1,8 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.RoleType;
-import com.example.demo.entity.Session;
-import com.example.demo.entity.User;
+import com.example.demo.model.entity.RoleType;
+import com.example.demo.model.entity.User;
 
 import java.util.List;
 

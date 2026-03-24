@@ -1,12 +1,9 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.Project;
-import com.example.demo.entity.Task;
+import com.example.demo.model.entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-
-import java.time.LocalDate;
 
 public interface TaskRepository extends JpaRepository<Task, String> {
     //Чтобы очистить контекст после выполнения запроса, иначе при последующем чтении можно получить устаревшие данные
