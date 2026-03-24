@@ -10,8 +10,8 @@ public interface UserService {
     User registerUser(User user);
     User findById(int userId);
     User findByLogin(String login);
-    int updatePasswordHashById(int id, String newPasswordHash);
-    int updatePasswordHashByLogin(String login, String newPasswordHash);
+    User updatePasswordHashById(int id, String newPasswordHash);
+    User updatePasswordHashByLogin(String login, String newPasswordHash);
     List<User> getAllUsers();
     List<RoleType> getAllRoleTypes();
     //User getCurrentProfileInfo();

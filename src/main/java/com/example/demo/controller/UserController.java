@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.model.entity.RoleType;
 import com.example.demo.model.entity.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.service.UserService;
 
@@ -22,29 +24,53 @@ public class UserController {
     }
 
     @PostMapping(value = "/registration")
-    public User registerUser(@RequestBody User user){
-        return userService.registerUser(user);
+    public ResponseEntity<?> registerUser(@RequestBody User user){
+        try{
+            User userForResponse = userService.registerUser(user);
+            return new ResponseEntity<>(userForResponse, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(value = "/findById/{id}")
-    public User findById(@PathVariable int id){
-        return userService.findById(id);
+    public ResponseEntity<?> findById(@PathVariable int id){
+        try{
+            User user = userService.findById(id);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(value = "/findByLogin/{login}")
-    public User findByLogin(@PathVariable String login){
-        return userService.findByLogin(login);
+    public ResponseEntity<?> findByLogin(@PathVariable String login){
+        try{
+            User user = userService.findByLogin(login);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
-    // Аннотация для частичного обновления сущности
     @PatchMapping(value = "/updatePasswordById/{id}")
-    public int updatePasswordHashById(@PathVariable int id, @RequestBody String newPassword){
-        return userService.updatePasswordHashById(id, newPassword);
+    public ResponseEntity<?> updatePasswordHashById(@PathVariable int id, @RequestBody String newPassword){
+        try{
+            User user = userService.updatePasswordHashById(id, newPassword);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PatchMapping("/updatePasswordByLogin/{login}")
-    public int updatePasswordHashByLogin(@PathVariable String login, @RequestBody String newPassword){
-        return userService.updatePasswordHashByLogin(login, newPassword);
+    public ResponseEntity<?> updatePasswordHashByLogin(@PathVariable String login, @RequestBody String newPassword){
+        try{
+            User user = userService.updatePasswordHashByLogin(login, newPassword);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/info")

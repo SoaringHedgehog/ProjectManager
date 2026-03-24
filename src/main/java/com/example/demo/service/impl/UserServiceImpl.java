@@ -32,13 +32,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public int updatePasswordHashById(int id, String newPassword){
+    public User updatePasswordHashById(int id, String newPassword){
         return userRepository.updatePasswordHashById(id, newPassword);
     }
 
     @Override
     @Transactional
-    public int updatePasswordHashByLogin(String login, String newPassword){
+    public User updatePasswordHashByLogin(String login, String newPassword){
         return userRepository.updatePasswordHashByLogin(login, newPassword);
     }
 
