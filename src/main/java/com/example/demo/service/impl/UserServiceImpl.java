@@ -19,21 +19,9 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    // TODO Без реализации
     @Override
     public User authorizeUser(User user) {
-        /*if(session.isAuthenticated()){
-            throw new RuntimeException("Вход уже выполнен");
-        }
-
-        User userByLogin = userRepository.findByLogin(user.getLogin());
-        if(userByLogin != null && userByLogin.getPasswordHash().equals(user.getPasswordHash())){
-            System.out.println("Вход выполнен успешно");
-            session.setCurrentUser(user);
-        }
-        else
-        {
-            System.out.println("Неправильный логин или пароль");
-        }*/
         return user;
     }
 
@@ -73,9 +61,4 @@ public class UserServiceImpl implements UserService {
     public List<RoleType> getAllRoleTypes(){
         return List.of(RoleType.values());
     }
-
-    /*@Override
-    public User getCurrentProfileInfo(){
-        return session.getCurrentUser();
-    }*/
 }

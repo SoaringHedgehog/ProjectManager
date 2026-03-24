@@ -11,11 +11,9 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
-    //Session session;
 
-    public UserController(UserService userService/*, Session session*/){
+    public UserController(UserService userService){
         this.userService = userService;
-        //this.session = session;
     }
 
     @PostMapping(value = "/authorization")
@@ -58,9 +56,4 @@ public class UserController {
     public List<RoleType> getAllRoleTypes(){
         return userService.getAllRoleTypes();
     }
-
-    /*@GetMapping("/currentProfileInfo")
-    User getCurrentProfileInfo(Session session){
-        return userService.getCurrentProfileInfo();
-    }*/
 }
