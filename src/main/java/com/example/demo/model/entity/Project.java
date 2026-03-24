@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "projects")
@@ -17,7 +18,7 @@ import java.util.List;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id; //Потом замена типа на UUID
+    private UUID id; //Потом замена типа на UUID
 
     @Column
     private String name;
@@ -39,7 +40,7 @@ public class Project {
     @JsonManagedReference
     private List<Task> tasks;
 
-    public Project(int id, String name, String description, LocalDate dateStart, LocalDate dateFinish, User user){
+    public Project(UUID id, String name, String description, LocalDate dateStart, LocalDate dateFinish, User user){
         this.id = id;
         this.name = name;
         this.description = description;

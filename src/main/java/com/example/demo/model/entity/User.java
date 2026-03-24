@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -15,7 +16,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private UUID id;
 
     @Column(nullable = false, unique = true)
     private String login;
@@ -31,7 +32,7 @@ public class User {
     @JsonManagedReference
     private List<Project> projects;
 
-    public User(int id, String login, String passwordHash, RoleType roleType){
+    public User(UUID id, String login, String passwordHash, RoleType roleType){
         this.id = id;
         this.login = login;
         this.passwordHash = passwordHash;

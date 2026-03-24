@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tasks")
@@ -14,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id; //Потом замена на UUID
+    private UUID id; //Потом замена на UUID
 
     @Column
     private String name;
@@ -32,7 +33,7 @@ public class Task {
     @JsonBackReference
     private Project project;
 
-    public Task(int id, String name, String description, LocalDate dateStart, LocalDate dateFinish, Project project){
+    public Task(UUID id, String name, String description, LocalDate dateStart, LocalDate dateFinish, Project project){
         this.id = id;
         this.name = name;
         this.description = description;
