@@ -15,6 +15,7 @@ import java.util.UUID;
 @Table(name = "projects")
 @Getter @Setter
 @NoArgsConstructor // TODO Для JPA?
+@ToString
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,12 +49,5 @@ public class Project {
         this.dateFinish = dateFinish;
         this.user = user;
         this.tasks = new ArrayList<>();
-    }
-
-    public String toString(){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return "Id: " + id + "\n\tНазвание: " + name + "\n\tОписание: " + description
-                + "\n\tДата начала: " + dtf.format(dateStart) + "\n\tДата окончания: " + dtf.format(dateFinish)
-                + "\n\tПользователь: " + user;
     }
 }

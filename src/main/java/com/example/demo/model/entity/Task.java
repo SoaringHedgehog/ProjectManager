@@ -12,6 +12,7 @@ import java.util.UUID;
 @Table(name = "tasks")
 @Getter @Setter
 @NoArgsConstructor
+@ToString
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,12 +41,5 @@ public class Task {
         this.dateStart = dateStart;
         this.dateFinish = dateFinish;
         this.project = project;
-    }
-
-    public String toString(){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return "Id: " + id + "\n\tНазвание: " + name + "\n\tОписание: " + description
-                + "\n\tДата начала:\t" + dtf.format(dateStart) + "\n\tДата окончания:\t" + dtf.format(dateFinish)
-                + "\n\tПроект\t" + project;
     }
 }

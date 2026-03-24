@@ -13,6 +13,7 @@ import java.util.UUID;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,11 +39,5 @@ public class User {
         this.passwordHash = passwordHash;
         this.roleType = roleType;
         this.projects = new ArrayList<>();
-    }
-
-    @Override
-    public String toString(){
-        return "id: " + id + "\n\tЛогин: " + login + "\n\tХэш пароля: " + passwordHash
-                + "\n\tРоль: " + roleType.displayName();
     }
 }
