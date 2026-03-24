@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.entity.Task;
+import com.example.demo.model.request.TaskUpdateRequest;
 import com.example.demo.repository.TaskRepository;
 import com.example.demo.service.TaskService;
 import jakarta.transaction.Transactional;
@@ -35,8 +36,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional
-    public int updateFieldById(int taskId, String fieldForUpdate, String newValue) {
-        return taskRepository.updateFieldById(taskId, fieldForUpdate, newValue);
+    public Task updateFieldById(int taskId, TaskUpdateRequest taskUpdateRequest) {
+        Task task = taskRepository.findById(taskId);
+        task.setName(taskUpdateRequest.getName());
+        task.setDescription(taskUpdateRequest.getDescription());
+        task.setDateStart(taskUpdateRequest.getDateStart());
+        task.setDateFinish(taskUpdateRequest.getDateFinish());
+        return taskRepository.save(task);
     }
 
     @Override

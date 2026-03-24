@@ -1,14 +1,17 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.entity.Task;
+import com.example.demo.model.request.TaskUpdateRequest;
 import com.example.demo.service.TaskService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("/task")
 public class TaskController {
     private final TaskService taskService;
 
@@ -17,36 +20,64 @@ public class TaskController {
     }
 
     @PostMapping
-    public Task create(@RequestBody Task task){
-        return taskService.create(task);
+    public ResponseEntity<?> create(@RequestBody Task task){
+        try{
+            Task taskForResponse = taskService.create(task);
+            return new ResponseEntity<>(taskForResponse, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(value = "/findById/{id}")
-    public Task findById(@PathVariable int id){
-        return taskService.findById(id);
+    public ResponseEntity<?> findById(@PathVariable int id){
+        try{
+            Task task = taskService.findById(id);
+            return new ResponseEntity<>(task, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(value = "/findByName/{name}")
-    public Task findByName(@PathVariable String name){
-        return taskService.findByName(name);
+    public ResponseEntity<?> findByName(@PathVariable String name){
+        try{
+            Task task = taskService.findByName(name);
+            return new ResponseEntity<>(task, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     // Аннотация для частичного обновления сущности
     @PatchMapping(value = "/updateById/{id}")
-    public int updateFieldById(@PathVariable int id, @RequestBody Map<String, Object> payload){
-        String fieldForUpdate = (String) payload.get("fieldForUpdate");
-        String newValue = (String) payload.get("newValue");
-        return taskService.updateFieldById(id, fieldForUpdate, newValue);
+    public ResponseEntity<?> updateFieldById(@PathVariable int id, @RequestBody TaskUpdateRequest taskUpdateRequest){
+        try{
+            Task task = taskService.updateFieldById(id, taskUpdateRequest);
+            return new ResponseEntity<>(task, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public Task deleteById(@PathVariable int id){
-        return taskService.deleteById(id);
+    public ResponseEntity<?> deleteById(@PathVariable int id){
+        try{
+            Task task = taskService.deleteById(id);
+            return new ResponseEntity<>(task, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/deleteByName/{name}")
-    public Task deleteByName(@PathVariable String name){
-        return taskService.deleteByName(name);
+    public ResponseEntity<?> deleteByName(@PathVariable String name){
+        try{
+            Task task = taskService.deleteByName(name);
+            return new ResponseEntity<>(task, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/info")
