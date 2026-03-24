@@ -9,7 +9,6 @@ public interface TaskService {
     Task findById(int taskId);
     Task findByName(String taskName);
     int updateFieldById(int taskId, String fieldForUpdate, String newValue);
-    int updateFieldByName(String taskName, String fieldForUpdate, String newValue);
     Task deleteById(int taskId);
     Task deleteByName(String taskName);
     List<Task> getAllTasks();

@@ -41,12 +41,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional
-    public int updateFieldByName(String taskName, String fieldForUpdate, String newValue) {
-        return taskRepository.updateFieldByName(taskName, fieldForUpdate, newValue);
-    }
-
-    @Override
-    @Transactional
     public Task deleteById(int taskId) {
         return taskRepository.deleteById(taskId);
     }

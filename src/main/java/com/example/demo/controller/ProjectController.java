@@ -71,7 +71,7 @@ public class ProjectController {
     }
 
     @DeleteMapping("/deleteByName/{name}")
-    public ResponseEntity<?> updateByName(@PathVariable String name){
+    public ResponseEntity<?> deleteByName(@PathVariable String name){
         try{
             Project project = projectService.deleteByName(name);
             return new ResponseEntity<>(project, HttpStatus.OK);

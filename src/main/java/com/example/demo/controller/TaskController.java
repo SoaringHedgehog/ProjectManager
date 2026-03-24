@@ -39,20 +39,13 @@ public class TaskController {
         return taskService.updateFieldById(id, fieldForUpdate, newValue);
     }
 
-    @PatchMapping(value = "/updateByName/{name}")
-    public int updateFieldByName(@PathVariable String name, @RequestBody Map<String, Object> payload){
-        String fieldForUpdate = (String) payload.get("fieldForUpdate");
-        String newValue = (String) payload.get("newValue");
-        return taskService.updateFieldByName(name, fieldForUpdate, newValue);
-    }
-
     @DeleteMapping("/deleteById/{id}")
     public Task deleteById(@PathVariable int id){
         return taskService.deleteById(id);
     }
 
     @DeleteMapping("/deleteByName/{name}")
-    public Task updateByName(@PathVariable String name){
+    public Task deleteByName(@PathVariable String name){
         return taskService.deleteByName(name);
     }
 
