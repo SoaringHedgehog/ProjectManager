@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.entity.Project;
-import com.example.demo.model.request.ProjectUpdateRequest;
+import com.example.demo.model.entity.ProjectEntity;
+import com.example.demo.model.requestDTO.ProjectUpdateRequestDTO;
 import com.example.demo.service.ProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +19,10 @@ public class ProjectController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Project project){
+    public ResponseEntity<?> create(@RequestBody ProjectEntity projectEntity){
         try{
-            Project projectForResponse = projectService.create(project);
-            return new ResponseEntity<>(projectForResponse, HttpStatus.CREATED);
+            ProjectEntity projectEntityForResponse = projectService.create(projectEntity);
+            return new ResponseEntity<>(projectEntityForResponse, HttpStatus.CREATED);
         } catch(Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -31,8 +31,8 @@ public class ProjectController {
     @GetMapping(value = "/findById/{id}")
     public ResponseEntity<?> findById(@PathVariable int id){
         try{
-            Project project = projectService.findById(id);
-            return new ResponseEntity<>(project, HttpStatus.OK);
+            ProjectEntity projectEntity = projectService.findById(id);
+            return new ResponseEntity<>(projectEntity, HttpStatus.OK);
         } catch(Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -41,18 +41,18 @@ public class ProjectController {
     @GetMapping(value = "/findByName/{name}")
     public ResponseEntity<?> findByName(@PathVariable String name){
         try{
-            Project project = projectService.findByName(name);
-            return new ResponseEntity<>(project, HttpStatus.OK);
+            ProjectEntity projectEntity = projectService.findByName(name);
+            return new ResponseEntity<>(projectEntity, HttpStatus.OK);
         } catch(Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PatchMapping("/updateById/{id}")
-    public ResponseEntity<?> updateFieldById(@PathVariable int id, @RequestBody ProjectUpdateRequest projectUpdateRequest){
+    public ResponseEntity<?> updateFieldById(@PathVariable int id, @RequestBody ProjectUpdateRequestDTO projectUpdateRequestDTO){
         try{
-            Project project = projectService.updateFieldById(id, projectUpdateRequest);
-            return new ResponseEntity<>(project, HttpStatus.OK);
+            ProjectEntity projectEntity = projectService.updateFieldById(id, projectUpdateRequestDTO);
+            return new ResponseEntity<>(projectEntity, HttpStatus.OK);
         }
         catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -62,8 +62,8 @@ public class ProjectController {
     @DeleteMapping("/deleteById/{id}")
     public ResponseEntity<?> deleteById(@PathVariable int id){
         try{
-            Project project = projectService.deleteById(id);
-            return new ResponseEntity<>(project, HttpStatus.OK);
+            ProjectEntity projectEntity = projectService.deleteById(id);
+            return new ResponseEntity<>(projectEntity, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -72,8 +72,8 @@ public class ProjectController {
     @DeleteMapping("/deleteByName/{name}")
     public ResponseEntity<?> deleteByName(@PathVariable String name){
         try{
-            Project project = projectService.deleteByName(name);
-            return new ResponseEntity<>(project, HttpStatus.OK);
+            ProjectEntity projectEntity = projectService.deleteByName(name);
+            return new ResponseEntity<>(projectEntity, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -81,7 +81,7 @@ public class ProjectController {
 
     // TODO Это нужно?
     @GetMapping("/info")
-    public List<Project> getAllProjects(){
+    public List<ProjectEntity> getAllProjects(){
         return projectService.getAllProjects();
     }
 }

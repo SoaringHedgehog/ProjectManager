@@ -1,22 +1,24 @@
 package com.example.demo.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "tasks")
+@Table(name = "projects")
 @Getter @Setter
-@NoArgsConstructor
+@NoArgsConstructor // TODO Для JPA?
 @ToString
-public class Task {
+public class ProjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id; //Потом замена на UUID
+    private UUID id; //Потом замена типа на UUID
 
     @Column
     private String name;
@@ -32,14 +34,19 @@ public class Task {
 
     @ManyToOne
     @JsonBackReference
-    private Project project;
+    private UserEntity userEntity;
 
-    public Task(UUID id, String name, String description, LocalDate dateStart, LocalDate dateFinish, Project project){
+    @OneToMany(mappedBy = "projectEntity")
+    @JsonManagedReference
+    private List<TaskEntity> taskEntities;
+
+    public ProjectEntity(UUID id, String name, String description, LocalDate dateStart, LocalDate dateFinish, UserEntity userEntity){
         this.id = id;
         this.name = name;
         this.description = description;
         this.dateStart = dateStart;
         this.dateFinish = dateFinish;
-        this.project = project;
+        this.userEntity = userEntity;
+        this.taskEntities = new ArrayList<>();
     }
 }

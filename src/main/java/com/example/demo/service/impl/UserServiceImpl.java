@@ -1,11 +1,11 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.entity.RoleType;
-import com.example.demo.model.entity.User;
+import com.example.demo.model.entity.RoleTypeEnum;
+import com.example.demo.model.entity.UserEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.base.UserRepository;
 import com.example.demo.service.UserService;
 
 import java.util.List;
@@ -21,44 +21,44 @@ public class UserServiceImpl implements UserService {
 
     // TODO Без реализации
     @Override
-    public User authorizeUser(User user) {
-        return user;
+    public UserEntity authorizeUser(UserEntity userEntity) {
+        return userEntity;
     }
 
     @Override
-    public User registerUser(User user) {
-        return userRepository.save(user);
+    public UserEntity registerUser(UserEntity userEntity) {
+        return userRepository.save(userEntity);
     }
 
     @Override
     @Transactional
-    public User updatePasswordHashById(int id, String newPassword){
+    public UserEntity updatePasswordHashById(int id, String newPassword){
         return userRepository.updatePasswordHashById(id, newPassword);
     }
 
     @Override
     @Transactional
-    public User updatePasswordHashByLogin(String login, String newPassword){
+    public UserEntity updatePasswordHashByLogin(String login, String newPassword){
         return userRepository.updatePasswordHashByLogin(login, newPassword);
     }
 
     @Override
-    public User findById(int userId){
+    public UserEntity findById(int userId){
         return userRepository.findById(userId);
     }
 
     @Override
-    public User findByLogin(String login){
+    public UserEntity findByLogin(String login){
         return userRepository.findByLogin(login);
     }
 
     @Override
-    public List<User> getAllUsers(){
+    public List<UserEntity> getAllUsers(){
         return userRepository.findAll();
     }
 
     @Override
-    public List<RoleType> getAllRoleTypes(){
-        return List.of(RoleType.values());
+    public List<RoleTypeEnum> getAllRoleTypes(){
+        return List.of(RoleTypeEnum.values());
     }
 }

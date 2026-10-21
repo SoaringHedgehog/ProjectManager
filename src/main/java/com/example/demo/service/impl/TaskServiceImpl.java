@@ -1,8 +1,8 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.entity.Task;
-import com.example.demo.model.request.TaskUpdateRequest;
-import com.example.demo.repository.TaskRepository;
+import com.example.demo.model.entity.TaskEntity;
+import com.example.demo.model.requestDTO.TaskUpdateRequestDTO;
+import com.example.demo.repository.base.TaskRepository;
 import com.example.demo.service.TaskService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,45 +20,45 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task create(Task task) {
-        return taskRepository.save(task);
+    public TaskEntity create(TaskEntity taskEntity) {
+        return taskRepository.save(taskEntity);
     }
 
     @Override
-    public Task findById(int taskId) {
+    public TaskEntity findById(int taskId) {
         return taskRepository.findById(taskId);
     }
 
     @Override
-    public Task findByName(String taskName) {
+    public TaskEntity findByName(String taskName) {
         return taskRepository.findByName(taskName);
     }
 
     @Override
     @Transactional
-    public Task updateFieldById(int taskId, TaskUpdateRequest taskUpdateRequest) {
-        Task task = taskRepository.findById(taskId);
-        task.setName(taskUpdateRequest.getName());
-        task.setDescription(taskUpdateRequest.getDescription());
-        task.setDateStart(taskUpdateRequest.getDateStart());
-        task.setDateFinish(taskUpdateRequest.getDateFinish());
-        return taskRepository.save(task);
+    public TaskEntity updateFieldById(int taskId, TaskUpdateRequestDTO taskUpdateRequestDTO) {
+        TaskEntity taskEntity = taskRepository.findById(taskId);
+        taskEntity.setName(taskUpdateRequestDTO.getName());
+        taskEntity.setDescription(taskUpdateRequestDTO.getDescription());
+        taskEntity.setDateStart(taskUpdateRequestDTO.getDateStart());
+        taskEntity.setDateFinish(taskUpdateRequestDTO.getDateFinish());
+        return taskRepository.save(taskEntity);
     }
 
     @Override
     @Transactional
-    public Task deleteById(int taskId) {
+    public TaskEntity deleteById(int taskId) {
         return taskRepository.deleteById(taskId);
     }
 
     @Override
     @Transactional
-    public Task deleteByName(String taskName) {
+    public TaskEntity deleteByName(String taskName) {
         return taskRepository.deleteByName(taskName);
     }
 
     @Override
-    public List<Task> getAllTasks(){
+    public List<TaskEntity> getAllTasks(){
         return taskRepository.findAll();
     }
 }

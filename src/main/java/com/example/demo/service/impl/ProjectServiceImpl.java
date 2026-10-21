@@ -1,8 +1,8 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.entity.Project;
-import com.example.demo.model.request.ProjectUpdateRequest;
-import com.example.demo.repository.ProjectRepository;
+import com.example.demo.model.entity.ProjectEntity;
+import com.example.demo.model.requestDTO.ProjectUpdateRequestDTO;
+import com.example.demo.repository.base.ProjectRepository;
 import com.example.demo.service.ProjectService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,45 +20,45 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project create(Project project){
-        return projectRepository.save(project);
+    public ProjectEntity create(ProjectEntity projectEntity){
+        return projectRepository.save(projectEntity);
     }
 
     @Override
-    public Project findById(int projectId){
+    public ProjectEntity findById(int projectId){
         return projectRepository.findById(projectId);
     }
 
     @Override
-    public Project findByName(String projectName){
+    public ProjectEntity findByName(String projectName){
         return projectRepository.findByName(projectName);
     }
 
     @Override
     @Transactional
-    public Project updateFieldById(int projectId, ProjectUpdateRequest projectUpdateRequest){
-        Project project = projectRepository.findById(projectId);
-        project.setName(projectUpdateRequest.getName());
-        project.setDescription(projectUpdateRequest.getDescription());
-        project.setDateStart(projectUpdateRequest.getDateStart());
-        project.setDateFinish(projectUpdateRequest.getDateFinish());
-        return projectRepository.save(project);
+    public ProjectEntity updateFieldById(int projectId, ProjectUpdateRequestDTO projectUpdateRequestDTO){
+        ProjectEntity projectEntity = projectRepository.findById(projectId);
+        projectEntity.setName(projectUpdateRequestDTO.getName());
+        projectEntity.setDescription(projectUpdateRequestDTO.getDescription());
+        projectEntity.setDateStart(projectUpdateRequestDTO.getDateStart());
+        projectEntity.setDateFinish(projectUpdateRequestDTO.getDateFinish());
+        return projectRepository.save(projectEntity);
     }
 
     @Override
     @Transactional
-    public Project deleteById(int projectId){
+    public ProjectEntity deleteById(int projectId){
         return projectRepository.deleteById(projectId);
     }
 
     @Override
     @Transactional
-    public Project deleteByName(String projectName){
+    public ProjectEntity deleteByName(String projectName){
         return projectRepository.deleteByName(projectName);
     }
 
     @Override
-    public List<Project> getAllProjects(){
+    public List<ProjectEntity> getAllProjects(){
         return projectRepository.findAll();
     }
 }

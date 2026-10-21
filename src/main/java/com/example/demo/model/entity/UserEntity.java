@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
@@ -26,18 +26,18 @@ public class User {
     private String passwordHash;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "roleType", nullable = false)
-    private RoleType roleType;
+    @Column(name = "roleTypeEnum", nullable = false)
+    private RoleTypeEnum roleTypeEnum;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "userEntity")
     @JsonManagedReference
-    private List<Project> projects;
+    private List<ProjectEntity> projectEntities;
 
-    public User(UUID id, String login, String passwordHash, RoleType roleType){
+    public UserEntity(UUID id, String login, String passwordHash, RoleTypeEnum roleTypeEnum){
         this.id = id;
         this.login = login;
         this.passwordHash = passwordHash;
-        this.roleType = roleType;
-        this.projects = new ArrayList<>();
+        this.roleTypeEnum = roleTypeEnum;
+        this.projectEntities = new ArrayList<>();
     }
 }

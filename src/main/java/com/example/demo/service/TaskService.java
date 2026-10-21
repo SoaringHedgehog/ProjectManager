@@ -1,16 +1,16 @@
 package com.example.demo.service;
 
-import com.example.demo.model.entity.Task;
-import com.example.demo.model.request.TaskUpdateRequest;
+import com.example.demo.model.entity.TaskEntity;
+import com.example.demo.model.requestDTO.TaskUpdateRequestDTO;
 
 import java.util.List;
 
 public interface TaskService {
-    Task create(Task task);
-    Task findById(int taskId);
-    Task findByName(String taskName);
-    Task updateFieldById(int taskId, TaskUpdateRequest taskUpdateRequest);
-    Task deleteById(int taskId);
-    Task deleteByName(String taskName);
-    List<Task> getAllTasks();
+    TaskEntity create(TaskEntity taskEntity);
+    TaskEntity findById(int taskId);
+    TaskEntity findByName(String taskName);
+    TaskEntity updateFieldById(int taskId, TaskUpdateRequestDTO taskUpdateRequestDTO);
+    TaskEntity deleteById(int taskId);
+    TaskEntity deleteByName(String taskName);
+    List<TaskEntity> getAllTasks();
 }
