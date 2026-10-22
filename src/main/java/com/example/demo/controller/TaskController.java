@@ -8,9 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/api/tasks")
 public class TaskController {
     private final TaskService taskService;
 
@@ -18,7 +19,7 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @PostMapping
+    @PostMapping(value = "/create")
     public ResponseEntity<?> create(@RequestBody TaskEntity taskEntity){
         try{
             TaskEntity taskEntityForResponse = taskService.create(taskEntity);
@@ -29,7 +30,7 @@ public class TaskController {
     }
 
     @GetMapping(value = "/findById/{id}")
-    public ResponseEntity<?> findById(@PathVariable int id){
+    public ResponseEntity<?> findById(@PathVariable UUID id){
         try{
             TaskEntity taskEntity = taskService.findById(id);
             return new ResponseEntity<>(taskEntity, HttpStatus.OK);
@@ -50,7 +51,7 @@ public class TaskController {
 
     // Аннотация для частичного обновления сущности
     @PatchMapping(value = "/updateById/{id}")
-    public ResponseEntity<?> updateFieldById(@PathVariable int id, @RequestBody TaskUpdateRequestDTO taskUpdateRequestDTO){
+    public ResponseEntity<?> updateFieldById(@PathVariable UUID id, @RequestBody TaskUpdateRequestDTO taskUpdateRequestDTO){
         try{
             TaskEntity taskEntity = taskService.updateFieldById(id, taskUpdateRequestDTO);
             return new ResponseEntity<>(taskEntity, HttpStatus.OK);
@@ -60,7 +61,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable int id){
+    public ResponseEntity<?> deleteById(@PathVariable UUID id){
         try{
             TaskEntity taskEntity = taskService.deleteById(id);
             return new ResponseEntity<>(taskEntity, HttpStatus.OK);
@@ -72,7 +73,7 @@ public class TaskController {
     @DeleteMapping("/deleteByName/{name}")
     public ResponseEntity<?> deleteByName(@PathVariable String name){
         try{
-            TaskEntity taskEntity = taskService.deleteByName(name);
+            int taskEntity = taskService.deleteByName(name);
             return new ResponseEntity<>(taskEntity, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

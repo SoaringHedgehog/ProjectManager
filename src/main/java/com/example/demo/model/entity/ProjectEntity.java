@@ -17,8 +17,8 @@ import java.util.UUID;
 @ToString
 public class ProjectEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id; //Потом замена типа на UUID
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column
     private String name;
@@ -36,7 +36,9 @@ public class ProjectEntity {
     @JsonBackReference
     private UserEntity userEntity;
 
-    @OneToMany(mappedBy = "projectEntity")
+    @OneToMany(mappedBy = "projectEntity",
+        cascade = CascadeType.REMOVE,
+        orphanRemoval = true)
     @JsonManagedReference
     private List<TaskEntity> taskEntities;
 

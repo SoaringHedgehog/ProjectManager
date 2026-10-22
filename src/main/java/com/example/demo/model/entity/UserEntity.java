@@ -16,7 +16,7 @@ import java.util.UUID;
 @ToString
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false, unique = true)
@@ -29,7 +29,9 @@ public class UserEntity {
     @Column(name = "roleTypeEnum", nullable = false)
     private RoleTypeEnum roleTypeEnum;
 
-    @OneToMany(mappedBy = "userEntity")
+    @OneToMany(mappedBy = "userEntity",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true)
     @JsonManagedReference
     private List<ProjectEntity> projectEntities;
 

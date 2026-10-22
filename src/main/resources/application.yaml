@@ -6,7 +6,7 @@ spring:
     username: sa
     password: password
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update                 # create, update, validate, none
     show-sql: true                      # выводить SQL в консоль

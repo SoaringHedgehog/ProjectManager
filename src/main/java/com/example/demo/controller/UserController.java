@@ -2,15 +2,16 @@ package com.example.demo.controller;
 
 import com.example.demo.model.entity.RoleTypeEnum;
 import com.example.demo.model.entity.UserEntity;
+import com.example.demo.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.service.UserService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
 
@@ -34,7 +35,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/findById/{id}")
-    public ResponseEntity<?> findById(@PathVariable int id){
+    public ResponseEntity<?> findById(@PathVariable UUID id){
         try{
             UserEntity userEntity = userService.findById(id);
             return new ResponseEntity<>(userEntity, HttpStatus.OK);
@@ -54,10 +55,10 @@ public class UserController {
     }
 
     @PatchMapping(value = "/updatePasswordById/{id}")
-    public ResponseEntity<?> updatePasswordHashById(@PathVariable int id, @RequestBody String newPassword){
+    public ResponseEntity<?> updatePasswordHashById(@PathVariable UUID id, @RequestBody String newPassword){
         try{
-            UserEntity userEntity = userService.updatePasswordHashById(id, newPassword);
-            return new ResponseEntity<>(userEntity, HttpStatus.OK);
+            int countRowsChanged = userService.updatePasswordHashById(id, newPassword);
+            return new ResponseEntity<>(countRowsChanged, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -66,8 +67,8 @@ public class UserController {
     @PatchMapping("/updatePasswordByLogin/{login}")
     public ResponseEntity<?> updatePasswordHashByLogin(@PathVariable String login, @RequestBody String newPassword){
         try{
-            UserEntity userEntity = userService.updatePasswordHashByLogin(login, newPassword);
-            return new ResponseEntity<>(userEntity, HttpStatus.OK);
+            int countRowsChanged = userService.updatePasswordHashByLogin(login, newPassword);
+            return new ResponseEntity<>(countRowsChanged, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
