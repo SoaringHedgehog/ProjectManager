@@ -1,16 +1,17 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.entity.RoleType;
-import com.example.demo.model.entity.User;
+import com.example.demo.model.entity.RoleTypeEnum;
+import com.example.demo.model.entity.UserEntity;
+import com.example.demo.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.service.UserService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
 
@@ -19,25 +20,25 @@ public class UserController {
     }
 
     @PostMapping(value = "/authorization")
-    public User authorizeUser(@RequestBody User user){
-        return userService.authorizeUser(user);
+    public UserEntity authorizeUser(@RequestBody UserEntity userEntity){
+        return userService.authorizeUser(userEntity);
     }
 
     @PostMapping(value = "/registration")
-    public ResponseEntity<?> registerUser(@RequestBody User user){
+    public ResponseEntity<?> registerUser(@RequestBody UserEntity userEntity){
         try{
-            User userForResponse = userService.registerUser(user);
-            return new ResponseEntity<>(userForResponse, HttpStatus.OK);
+            UserEntity userEntityForResponse = userService.registerUser(userEntity);
+            return new ResponseEntity<>(userEntityForResponse, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping(value = "/findById/{id}")
-    public ResponseEntity<?> findById(@PathVariable int id){
+    public ResponseEntity<?> findById(@PathVariable UUID id){
         try{
-            User user = userService.findById(id);
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            UserEntity userEntity = userService.findById(id);
+            return new ResponseEntity<>(userEntity, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -46,18 +47,18 @@ public class UserController {
     @GetMapping(value = "/findByLogin/{login}")
     public ResponseEntity<?> findByLogin(@PathVariable String login){
         try{
-            User user = userService.findByLogin(login);
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            UserEntity userEntity = userService.findByLogin(login);
+            return new ResponseEntity<>(userEntity, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PatchMapping(value = "/updatePasswordById/{id}")
-    public ResponseEntity<?> updatePasswordHashById(@PathVariable int id, @RequestBody String newPassword){
+    public ResponseEntity<?> updatePasswordHashById(@PathVariable UUID id, @RequestBody String newPassword){
         try{
-            User user = userService.updatePasswordHashById(id, newPassword);
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            int countRowsChanged = userService.updatePasswordHashById(id, newPassword);
+            return new ResponseEntity<>(countRowsChanged, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -66,20 +67,20 @@ public class UserController {
     @PatchMapping("/updatePasswordByLogin/{login}")
     public ResponseEntity<?> updatePasswordHashByLogin(@PathVariable String login, @RequestBody String newPassword){
         try{
-            User user = userService.updatePasswordHashByLogin(login, newPassword);
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            int countRowsChanged = userService.updatePasswordHashByLogin(login, newPassword);
+            return new ResponseEntity<>(countRowsChanged, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/info")
-    public List<User> getAllUsers(){
+    public List<UserEntity> getAllUsers(){
         return userService.getAllUsers();
     }
 
     @GetMapping("/roleTypes")
-    public List<RoleType> getAllRoleTypes(){
+    public List<RoleTypeEnum> getAllRoleTypes(){
         return userService.getAllRoleTypes();
     }
 }

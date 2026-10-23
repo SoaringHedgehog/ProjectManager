@@ -1,11 +1,11 @@
-package com.example.demo.model.request;
+package com.example.demo.model.requestDTO;
 
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public class TaskUpdateRequest {
+public class ProjectUpdateRequestDTO {
     private String name;
     private String description;
     private LocalDate dateStart;

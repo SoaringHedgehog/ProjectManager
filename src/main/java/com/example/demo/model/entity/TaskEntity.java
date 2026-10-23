@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Entity
@@ -13,10 +12,10 @@ import java.util.UUID;
 @Getter @Setter
 @NoArgsConstructor
 @ToString
-public class Task {
+public class TaskEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id; //Потом замена на UUID
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column
     private String name;
@@ -32,14 +31,14 @@ public class Task {
 
     @ManyToOne
     @JsonBackReference
-    private Project project;
+    private ProjectEntity projectEntity;
 
-    public Task(UUID id, String name, String description, LocalDate dateStart, LocalDate dateFinish, Project project){
+    public TaskEntity(UUID id, String name, String description, LocalDate dateStart, LocalDate dateFinish, ProjectEntity projectEntity){
         this.id = id;
         this.name = name;
         this.description = description;
         this.dateStart = dateStart;
         this.dateFinish = dateFinish;
-        this.project = project;
+        this.projectEntity = projectEntity;
     }
 }

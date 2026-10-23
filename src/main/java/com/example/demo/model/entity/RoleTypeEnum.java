@@ -1,12 +1,12 @@
 package com.example.demo.model.entity;
 
-public enum RoleType {
+public enum RoleTypeEnum {
     USER("Обычный пользователь"),
     ADMINISTRATOR("Администратор");
 
     private String displayName;
 
-    RoleType(String displayName) {
+    RoleTypeEnum(String displayName) {
         this.displayName = displayName;
     }
 

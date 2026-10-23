@@ -6,6 +6,7 @@ target/
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
+.idea/uiDesigner.xml
 .idea/compiler.xml
 .idea/libraries/
 *.iws
@@ -16,7 +17,7 @@ target/
 .apt_generated
 .classpath
 .factorypath
-.project
+.projectEntity
 .settings
 .springBeans
 .sts4-cache

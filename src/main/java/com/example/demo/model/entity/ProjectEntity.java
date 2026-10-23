@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,10 +15,10 @@ import java.util.UUID;
 @Getter @Setter
 @NoArgsConstructor // TODO Для JPA?
 @ToString
-public class Project {
+public class ProjectEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id; //Потом замена типа на UUID
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column
     private String name;
@@ -35,19 +34,21 @@ public class Project {
 
     @ManyToOne
     @JsonBackReference
-    private User user;
+    private UserEntity userEntity;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "projectEntity",
+        cascade = CascadeType.REMOVE,
+        orphanRemoval = true)
     @JsonManagedReference
-    private List<Task> tasks;
+    private List<TaskEntity> taskEntities;
 
-    public Project(UUID id, String name, String description, LocalDate dateStart, LocalDate dateFinish, User user){
+    public ProjectEntity(UUID id, String name, String description, LocalDate dateStart, LocalDate dateFinish, UserEntity userEntity){
         this.id = id;
         this.name = name;
         this.description = description;
         this.dateStart = dateStart;
         this.dateFinish = dateFinish;
-        this.user = user;
-        this.tasks = new ArrayList<>();
+        this.userEntity = userEntity;
+        this.taskEntities = new ArrayList<>();
     }
 }

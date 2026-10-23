@@ -1,13 +1,11 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.entity.Project;
+import com.example.demo.model.entity.ProjectEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 
-public interface ProjectRepository extends JpaRepository<Project, String> {
-    Project findById(int id);
-    Project findByName(String name);
-    Project deleteById(int id);
-    Project deleteByName(String name);
+import java.util.UUID;
+
+public interface ProjectRepository extends JpaRepository<ProjectEntity, UUID> {
+    ProjectEntity findByName(String name);
+    int deleteByName(String name);
 }

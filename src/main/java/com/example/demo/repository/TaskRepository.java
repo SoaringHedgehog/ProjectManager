@@ -1,13 +1,11 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.entity.Task;
+import com.example.demo.model.entity.TaskEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 
-public interface TaskRepository extends JpaRepository<Task, String> {
-    Task findById(int id);
-    Task findByName(String name);
-    Task deleteById(int id);
-    Task deleteByName(String name);
+import java.util.UUID;
+
+public interface TaskRepository extends JpaRepository<TaskEntity, UUID> {
+    TaskEntity findByName(String name);
+    int deleteByName(String name);
 }
